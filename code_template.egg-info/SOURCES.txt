@@ -1,8 +1,0 @@
-README.md
-setup.py
-code_template/__init__.py
-code_template/helloworld.py
-code_template.egg-info/PKG-INFO
-code_template.egg-info/SOURCES.txt
-code_template.egg-info/dependency_links.txt
-code_template.egg-info/top_level.txt
