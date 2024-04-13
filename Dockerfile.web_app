@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Copy the current directory contents into the container at
 COPY ./ /chatbot_webapp/
 
+# Upgrade pip to the latest version
+RUN /usr/local/bin/python -m pip install --upgrade pip
+
 # Install python package
 # Consider using a requirements.txt file if you have multiple dependencies
 RUN pip install -v dist/chatbot_webapp-1.0-py3-none-any.whl
