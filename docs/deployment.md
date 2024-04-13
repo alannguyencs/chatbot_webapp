@@ -11,6 +11,7 @@
 ### Test the deployment
 + `git clone --no-hardlinks --branch <branch_name> --single-branch /path/to/chatbot_webapp`
 + e.g., `git clone --no-hardlinks --branch deployment_v1.0_2404 --single-branch /home/alan/Documents/chatbot_webapp`
++ Remark: to pull the updated changes, we go to `/path/to/chatbot_webapp` and run `git pull origin <branch_name>`
 + `python setup.py sdist bdist_wheel`
 + `conda remove --name test_env --all`
 + `conda create -n test_env python=3.10`

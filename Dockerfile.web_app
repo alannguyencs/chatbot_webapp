@@ -15,7 +15,7 @@ COPY ./ /chatbot_webapp/
 
 # Install python package
 # Consider using a requirements.txt file if you have multiple dependencies
-RUN pip install dist/chatbot_webapp-1.0-py3-none-any.whl
+RUN pip install -v dist/chatbot_webapp-1.0-py3-none-any.whl
 
 # Expose the port the app runs on
 EXPOSE 8501
