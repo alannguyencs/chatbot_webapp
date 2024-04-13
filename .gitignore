@@ -1,5 +1,4 @@
-code_template.egg-info/
 __pycache__/
 ckpt/*
 !ckpt/README.md
-chatbot_webapp/archs/
+.env

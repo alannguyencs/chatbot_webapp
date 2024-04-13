@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Submission Form</title>
+    <style>
+        body {
+            background-color: #d1e7dd;
+            /* Peach green background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        #submissionForm {
+            background-color: white;
+            /* White form background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        #submissionForm select,
+        #submissionForm input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #submissionForm button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submissionForm button:hover {
+            background-color: #45a049;
+        }
+
+        #projectName {
+            font-size: 24px;
+            /* Large text */
+            font-weight: bold;
+            /* Make it bold */
+            text-align: center;
+            /* Center the text */
+            margin-bottom: 20px;
+            /* Add some space below the project name */
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="submissionForm">
+        <div id="projectName">Cognitive Health Assistant</div>
+        Domain Name: <select id="domainName"></select><br>
+        User Name: <input type="text" id="userName"><br>
+        LLM Mode Type: <select id="llmModeType"></select><br>
+        Embedding Model Type: <select id="embeddingModelType"></select><br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        async function fetchData(type) {
+            const response = await fetch(`/data/${type}`);
+            const data = await response.json();
+            console.log(data, type)
+            return data;
+        }
+
+        async function populateDropdowns() {
+            const domainDropdown = document.getElementById('domainName');
+            const llmDropdown = document.getElementById('llmModeType');
+            const embeddingDropdown = document.getElementById('embeddingModelType');
+
+            const domains = await fetchData('domains');
+            const llmModels = await fetchData('llm_models');
+            const embeddingProviders = await fetchData('embedding_provider');
+
+            domains.forEach(domain => {
+                domainDropdown.options.add(new Option(domain, domain));
+            });
+
+            llmModels.forEach(model => {
+                llmDropdown.options.add(new Option(model, model));
+            });
+
+            embeddingProviders.forEach(provider => {
+                embeddingDropdown.options.add(new Option(provider, provider));
+            });
+        }
+
+        async function submitForm() {
+            const submission = {
+                expert_domain: document.getElementById('domainName').value,
+                user_name: document.getElementById('userName').value,
+                llm_model: document.getElementById('llmModeType').value,
+                embedding_model: document.getElementById('embeddingModelType').value,
+            };
+            console.log("Domain Name: ", submission.expert_domain);
+            const response = await fetch('/user/sessionData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(submission),
+            });
+
+            const result = await response.json();
+            console.log(result);  // Handle the response as needed
+            // redirect to chat_ui
+            window.location.href = '/user/chat';
+        }
+
+        window.onload = populateDropdowns;
+    </script>
+</body>
+
+</html>
