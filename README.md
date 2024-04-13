@@ -1,1 +1,1 @@
-This version is to add a simple webapp with FastAPI().
+This version is to add a simple chatbot assistant webapp with FastAPI.
