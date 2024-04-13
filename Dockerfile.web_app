@@ -1,0 +1,28 @@
+# Use an exact version for reproducibility
+FROM python:3.10.0-slim
+
+# Set the working directory
+WORKDIR /chatbot_webapp
+
+# update and install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Copy the current directory contents into the container at
+COPY ./ /chatbot_webapp/
+
+# Install python package
+# Consider using a requirements.txt file if you have multiple dependencies
+RUN pip install dist/chatbot_webapp-1.0-py3-none-any.whl
+
+# Expose the port the app runs on
+EXPOSE 8501
+
+# Create a non-root user and switch to it
+RUN useradd -m myuser
+USER myuser
+
+# run the Streamlit application
+CMD ["streamlit", "run", "scripts/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
