@@ -9,8 +9,7 @@
 `git rm -r --cached .`
 
 ### Test the deployment
-+ `git clone --no-hardlinks --branch <branch_name> --single-branch /path/to/chatbot_webapp`
-+ e.g., `git clone --no-hardlinks --branch deployment_v1.0_2404 --single-branch /home/alan/Documents/chatbot_webapp`
++ `git clone --branch <branchname> --single-branch <path-to-local-repo> <local-directory>`
 + Remark: to pull the updated changes, we go to `/path/to/chatbot_webapp` and run `git pull origin <branch_name>`
 + Environment:
 ```
